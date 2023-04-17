@@ -10,8 +10,6 @@ public final class DynamicTpConst {
 
     public static final String THREAD_POOL_NAME = "threadPoolName";
 
-    public static final String THREAD_POOL_ALIAS_NAME = "threadPoolAliasName";
-
     public static final String ARR_LEFT_BRACKET = "[";
 
     public static final String ARR_RIGHT_BRACKET = "]";

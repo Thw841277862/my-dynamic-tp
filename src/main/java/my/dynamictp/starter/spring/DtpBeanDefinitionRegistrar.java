@@ -21,13 +21,17 @@ import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 
 
-import static my.dynamictp.starter.constant.DynamicTpConst.THREAD_POOL_ALIAS_NAME;
 import static my.dynamictp.starter.constant.DynamicTpConst.THREAD_POOL_NAME;
 
 @Slf4j
 public class DtpBeanDefinitionRegistrar implements ImportBeanDefinitionRegistrar, EnvironmentAware {
     private Environment environment;
 
+    /**
+     *
+     * @param importingClassMetadata
+     * @param registry
+     */
     @Override
     public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
         DtpProperties dtpProperties = new DtpProperties();
@@ -38,9 +42,13 @@ public class DtpBeanDefinitionRegistrar implements ImportBeanDefinitionRegistrar
             return;
         }
         executors.forEach(e -> {
+            //获取相关自定义线程执行器
             Class<?> executorTypeClass = ExecutorTypeEnum.getClass(e.getExecutorType());
+            //给定相关线程产生
             Map<String, Object> propertyValues = buildPropertyValues(e);
+            //给DtpExecutor构造参数
             Object[] objects = buildConstructorArgs(executorTypeClass, e);
+            //以线程名称注册相关线程池到spring容器中
             BeanUtil.registerIfAbsent(registry, e.getThreadPoolName(), executorTypeClass, propertyValues, objects);
         });
     }
@@ -48,7 +56,6 @@ public class DtpBeanDefinitionRegistrar implements ImportBeanDefinitionRegistrar
     private Map<String, Object> buildPropertyValues(DtpExecutorProps executorProps) {
         Map<String, Object> propertyValues = new HashMap<>();
         propertyValues.put(THREAD_POOL_NAME, executorProps.getThreadPoolName());
-        propertyValues.put(THREAD_POOL_ALIAS_NAME, executorProps.getThreadPoolAliasName());
         return propertyValues;
     }
 

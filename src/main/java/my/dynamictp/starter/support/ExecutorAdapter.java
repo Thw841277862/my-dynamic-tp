@@ -1,6 +1,10 @@
 package my.dynamictp.starter.support;
 
+import java.util.Optional;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
+import java.util.concurrent.RejectedExecutionHandler;
+import java.util.concurrent.TimeUnit;
 
 public interface ExecutorAdapter<E extends Executor> extends Executor {
     /**
@@ -49,4 +53,25 @@ public interface ExecutorAdapter<E extends Executor> extends Executor {
      * 获取存活的线程数
      */
     int getActiveCount();
+
+    long getKeepAliveTime(TimeUnit unit);
+
+    BlockingQueue<Runnable> getQueue();
+
+    default boolean allowsCoreThreadTimeOut() {
+        //default unsupported
+        return false;
+    }
+
+    default String getRejectHandlerName() {
+        return Optional.ofNullable(getRejectedExecutionHandler())
+                .map(h -> h.getClass().getSimpleName())
+                .orElse("unsupported");
+    }
+
+    default void setKeepAliveTime(long time, TimeUnit unit) {
+        //default unsupported
+    }
+
+    RejectedExecutionHandler getRejectedExecutionHandler();
 }

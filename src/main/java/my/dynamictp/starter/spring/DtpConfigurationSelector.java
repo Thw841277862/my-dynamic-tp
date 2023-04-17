@@ -23,7 +23,7 @@ public class DtpConfigurationSelector implements DeferredImportSelector, Ordered
         if (!BooleanUtils.toBoolean(environment.getProperty(DTP_ENABLED_PROP, BooleanUtils.TRUE))) {
             return new String[]{};
         }
-        return new String[]{DtpBeanDefinitionRegistrar.class.getName()};
+        return new String[]{DtpBeanDefinitionRegistrar.class.getName(),};
     }
 
     @Override

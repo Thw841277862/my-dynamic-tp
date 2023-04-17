@@ -38,6 +38,15 @@ public final class BeanUtil {
         return beanFactory.getBeanNamesForType(clazz, true, false);
     }
 
+    /**
+     * 这一步会往Spring容器里面注册：DtpExecutor执行器
+     *
+     * @param registry
+     * @param beanName
+     * @param clazz
+     * @param propertyValues
+     * @param constructorArgs
+     */
     public static void doRegister(BeanDefinitionRegistry registry,
                                   String beanName,
                                   Class<?> clazz,

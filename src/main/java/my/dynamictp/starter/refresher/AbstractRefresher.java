@@ -7,6 +7,7 @@ import my.dynamictp.starter.enums.ConfigFileTypeEnum;
 import my.dynamictp.starter.event.RefreshEvent;
 import my.dynamictp.starter.properties.DtpProperties;
 import my.dynamictp.starter.spring.PropertiesBinder;
+import my.dynamictp.starter.support.DtpRegistry;
 import my.dynamictp.starter.util.ConfigHandler;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
